@@ -40,7 +40,6 @@ videos_backup = "G:/My Drive/Videos"
 music = "C:/Users/ashfa/Music"
 music_backup = "G:/My Drive/Music"
 
-#######################################################################
 
 def folder_backup(src_folder, des_folder):
     if os.path.exists(des_folder):
@@ -62,10 +61,10 @@ def progress(percent=0, width=30):
           f' {percent:.0f}%', sep='', end='', flush=True)
 
 print()
-print(Back.YELLOW + Fore.BLACK + " BACKUP PROTOCOL ")
+print(Back.YELLOW + Fore.BLACK + " BACKUP PROTOCOL - GOOGLE DRIVE ")
 print(Fore.LIGHTBLACK_EX + "Copyright © 2023 Ashfaaq Rifath")
 
-# Below is the real-time progress bar feature
+# below is the real time progress bar feature
 
 # def count_total_files(folder):
 #     total_files = len(os.listdir(folder))
@@ -78,7 +77,6 @@ print(Fore.LIGHTBLACK_EX + "Copyright © 2023 Ashfaaq Rifath")
 #         if os.path.isfile(file_path):
 #             files.append(file_path)
 #     return files
-
 
 # total_files = count_total_files(screenshots) 
 # with tqdm(total=total_files, unit="file") as pbar:
@@ -250,6 +248,8 @@ while True:
  (7) Wallpapers
  (8) Pics
  (9) Logos
+ (10) Videos
+ (11) Music
  ''')
         sub_option = input(Fore.CYAN + " Select comparison folder: " + Style.RESET_ALL)
         if sub_option == "1":
@@ -279,9 +279,14 @@ while True:
         elif sub_option == "9":
             folder_comparison(logos, logos_backup)
 
+        elif sub_option == "10":
+            folder_comparison(videos, videos_backup)
+
+        elif sub_option == "11":
+            folder_comparison(music, music_backup)
+
     else:
         print(" " + Fore.BLACK  + Back.RED + " INVALID OPTION ")
         print()
-
 
 # This tool is designed for my use cases only. changes can be made according to your uses.
