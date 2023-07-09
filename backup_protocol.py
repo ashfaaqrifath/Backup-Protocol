@@ -1,7 +1,9 @@
 import os
 import shutil
 import time
+import subprocess
 import colorama
+from tqdm import tqdm
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
@@ -27,7 +29,7 @@ portfolio = "C:/Users/ashfa/OneDrive/Documents/Ashfaaq Rifath Portfolio"
 portfolio_backup = "G:/My Drive/Documents/Ashfaaq Rifath Portfolio"
 
 sliit = "C:/Users/ashfa/OneDrive/Documents/SLIIT"
-sliit_backup = "G:/My Drive/Documents/SLIIT"
+sliit_backup = "G:/My Drive/SLIIT"
 
 passwords = "C:/Users/ashfa/OneDrive/Documents/Passwords"
 passwords_backup = "G:/My Drive/Documents/Passwords"
@@ -45,6 +47,14 @@ def folder_backup(src_folder, des_folder):
         shutil.rmtree(des_folder)
     shutil.copytree(src_folder, des_folder)
 
+def folder_comparison(folder1, folder2):
+    command = f'robocopy "{folder1}" "{folder2}" /L /E'
+    try:
+        subprocess.run(command, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        pass
+    print(Fore.GREEN + " Displaying folder content comparison")
+
 def progress(percent=0, width=30):
     symbol = width * percent // 100
     blanks = width - symbol
@@ -55,14 +65,39 @@ print()
 print(Back.YELLOW + Fore.BLACK + " BACKUP PROTOCOL ")
 print(Fore.LIGHTBLACK_EX + "Copyright © 2023 Ashfaaq Rifath")
 
+# Below is the real-time progress bar feature
+
+# def count_total_files(folder):
+#     total_files = len(os.listdir(folder))
+#     return total_files
+
+# def get_files(folder):
+#     files = []
+#     for file_name in os.listdir(folder):
+#         file_path = os.path.join(folder, file_name)
+#         if os.path.isfile(file_path):
+#             files.append(file_path)
+#     return files
+
+
+# total_files = count_total_files(screenshots) 
+# with tqdm(total=total_files, unit="file") as pbar:
+#         for fl in screenshots:
+#             files = get_files(screenshots)  
+#             for file in files:
+
+#                 folder_backup(screenshots, screenshots_backup)
+#                 pbar.update(1)
+
 while True:
     print('''
  (1) Documents
  (2) Pictures
  (3) Videos
  (4) Music
+ (5) Folder comparison
  ''')
-    main_option = input(Fore.CYAN + " Select backup object: " + Style.RESET_ALL)
+    main_option = input(Fore.CYAN + " Select option: " + Style.RESET_ALL)
 
     if main_option == "1":
         print('''
@@ -204,6 +239,49 @@ while True:
         print(Fore.GREEN + "         Backup successful")
         print("")
 
+    elif main_option == "5":
+        print('''
+ (1) My Projects
+ (2) Ashfaaq Rifath Portfolio
+ (3) SLIIT
+ (4) Passwords
+ (5) Images
+ (6) Screenshots
+ (7) Wallpapers
+ (8) Pics
+ (9) Logos
+ ''')
+        sub_option = input(Fore.CYAN + " Select comparison folder: " + Style.RESET_ALL)
+        if sub_option == "1":
+            folder_comparison(projects, projects_backup)
+
+        elif sub_option == "2":
+            folder_comparison(portfolio, portfolio_backup)
+
+        elif sub_option == "3":
+            folder_comparison(sliit, sliit_backup)
+
+        elif sub_option == "4":
+            folder_comparison(passwords, passwords_backup)
+
+        elif sub_option == "5":
+            folder_comparison(images, images_backup)
+
+        elif sub_option == "6":
+            folder_comparison(screenshots, screenshots_backup)
+
+        elif sub_option == "7":
+            folder_comparison(wallpapers, wallpapers_backup)
+
+        elif sub_option == "8":
+            folder_comparison(pics, pics_backup)
+
+        elif sub_option == "9":
+            folder_comparison(logos, logos_backup)
+
     else:
         print(" " + Fore.BLACK  + Back.RED + " INVALID OPTION ")
         print()
+
+
+# This tool is designed for my use cases only. changes can be made according to your uses.
